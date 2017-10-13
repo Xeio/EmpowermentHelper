@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<Root>
+<Module  name = "EmpowermentHelper"
+	movie       = "EmpowermentHelper\EmpowermentHelper.swf"
+	flags       = "GMF_CFG_STORE_USER_CONFIG"
+	depth_layer = "Top"
+	sub_depth   = "2"
+	variable    = "EmpowermentHelper"
+	criteria    = "EmpowermentHelper &amp;&amp; ItemUpgradeWindow &amp;&amp; (guimode &amp; (GUIMODEFLAGS_INPLAY | GUIMODEFLAGS_ENABLEALLGUI))"
+	config_name = "EmpowermentHelper_Cfg"
+	/>
+</Root>
