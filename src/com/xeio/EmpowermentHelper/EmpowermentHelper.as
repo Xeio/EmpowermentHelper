@@ -210,12 +210,6 @@ class EmpowermentHelper
             var itemToMove = itemsToMove.pop();
             var freeSlot = freeSlots.pop();
             m_craftingInventory.AddItem(m_inventory.GetInventoryID(), itemToMove, freeSlot);
-            
-            if (EmpowermentChallengActive())
-            {
-                //If challenge is active, only move one distillate at most
-                return;
-            }
         }
     }
     
@@ -235,22 +229,5 @@ class EmpowermentHelper
             if (!m_craftingInventory.GetItemAt(i)) freeslots.push(i);
         }
         return freeslots;
-    }
-    
-    function EmpowermentChallengActive():Boolean
-    {
-        var completedChallenges:Array = Quests.GetAllCompletedChallenges();
-        if (!Utils.Any(completedChallenges, function(i) { return i.m_MissionType == 15; }))
-        {
-            //daily challenge
-            return true;
-        }
-        else if (completedChallenges.length >= 5 && !Utils.Any(completedChallenges, function(i) { return i.m_MissionType == 19; }))
-        {
-            //bonus challenge
-            return true;
-        }
-        
-        return false;
     }
 }
