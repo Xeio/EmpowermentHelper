@@ -22,10 +22,10 @@ class EmpowermentHelper
     private var EMPOWER_SLOT_3:Number = 6;
     private var EMPOWER_SLOT_4:Number = 7;
 
-    private var WEAPON:Array = MakeStringsIntoPrefixes([LDBFormat.LDBGetText(50200, 9285947), LDBFormat.LDBGetText(50200, 9288774)]);
-    private var TALISMAN:Array = MakeStringsIntoPrefixes([LDBFormat.LDBGetText(50200, 9285944), LDBFormat.LDBGetText(50200, 9288772)]);
-    private var GLYPH:Array = MakeStringsIntoPrefixes([LDBFormat.LDBGetText(50200, 9288137), LDBFormat.LDBGetText(50200, 9288777)]);
-    private var SIGNET:Array = MakeStringsIntoPrefixes([LDBFormat.LDBGetText(50200, 9288650), LDBFormat.LDBGetText(50200, 9288784)]);
+    private var WEAPON:Number = 30151;
+    private var TALISMAN:Number = 30152;
+    private var GLYPH:Number = 30153;
+    private var SIGNET:Number = 30154;
 
     var m_glyphDistillateButton:MovieClip;
     var m_weaponDistillateButton:MovieClip;
@@ -144,7 +144,7 @@ class EmpowermentHelper
             m_weaponDistillateButton._width = width;
             m_weaponDistillateButton._height = width;
             
-            m_weaponDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingItems(this.WEAPON); } );
+            m_weaponDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingDistillates(this.WEAPON); } );
         }
         if (target == m_talismanDistillateButton)
         {
@@ -153,7 +153,7 @@ class EmpowermentHelper
             m_talismanDistillateButton._width = width;
             m_talismanDistillateButton._height = width;
             
-            m_talismanDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingItems(this.TALISMAN); } );
+            m_talismanDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingDistillates(this.TALISMAN); } );
         }
         if (target == m_glyphDistillateButton)
         {
@@ -162,7 +162,7 @@ class EmpowermentHelper
             m_glyphDistillateButton._width = width;
             m_glyphDistillateButton._height = width;
             
-            m_glyphDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingItems(this.GLYPH); } );
+            m_glyphDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingDistillates(this.GLYPH); } );
         }
         if (target == m_signetDistillateButton)
         {
@@ -171,7 +171,7 @@ class EmpowermentHelper
             m_signetDistillateButton._width = width;
             m_signetDistillateButton._height = width;
             
-            m_signetDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingItems(this.SIGNET); } );
+            m_signetDistillateButton.onPress = Delegate.create(this, function(){ this.FindMatchingDistillates(this.SIGNET); } );
         }
         if (target == m_returnButton)
         {
@@ -184,7 +184,7 @@ class EmpowermentHelper
         }
     }
     
-    function FindMatchingItems(namePrefixes:Array)
+    function FindMatchingDistillates(realType:Number)
     {
         var freeSlots:Array = GetFreeEmpowermentSlots();
         if (freeSlots.length == 0) return;
@@ -193,15 +193,9 @@ class EmpowermentHelper
         for (var i = 0 ; i < m_inventory.GetMaxItems(); i++)
         {
             var item:InventoryItem = m_inventory.GetItemAt(i);
-            if (item)
+            if (item && item.m_RealType == realType && item.m_XP > 0)
             {
-                for (var p in namePrefixes)
-                {
-                    if (item.m_Name.indexOf(namePrefixes[p]) == 0)
-                    {
-                        itemsToMove.push(i);
-                    }
-                }
+                itemsToMove.push(i);
             }
         }
         
